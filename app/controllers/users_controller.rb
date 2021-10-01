@@ -6,6 +6,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @tweets = @user.tweets
   end
+
+  def index
+    @users = User.all
+  end
   
   def new
     @user = User.new
@@ -40,13 +44,6 @@ class UsersController < ApplicationController
 	  def user_params
 		  params.require(:user).permit(:name, :email, :password, :password_confirmation)
 	  end
-
-    def logged_in_user
-      unless logged_in?
-        flash[:danger] = "ログインしてください"
-        redirect_to login_url
-      end
-    end
 
     def current_user
       @user = User.find(params[:id])
